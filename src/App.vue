@@ -9,6 +9,7 @@
     </v-toolbar>
     <SideNave></SideNave>
     <v-content>
+      <router-view/>
     </v-content>
   </v-app>
 </template>
