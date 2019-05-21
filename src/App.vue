@@ -10,7 +10,8 @@
         <v-btn @click="logout">ログアウト</v-btn>
       </v-toolbar-items>
     </v-toolbar>
-    <SideNave></SideNave>
+    <SideNav/>
+
     <v-content>
       <router-view/>
     </v-content>
@@ -19,21 +20,22 @@
 
 <script>
 import firebase from 'firebase'
-import {mapActions}from 'vuex'
-import SideNave from './components/SideNav'
+import SideNav from './components/SideNav'
+import { mapActions } from 'vuex'
 export default {
   name: 'App',
   components: {
-    SideNave
+    SideNav
   },
   created () {
     firebase.auth().onAuthStateChanged(user => {
       if (user) {
         this.setLoginUser(user)
-        if(this.$router.currentRoute.name === 'home')this.$router.push({name:'addresses'})
+        this.fetchAddresses()
+        if (this.$router.currentRoute.name === 'home') this.$router.push({ name: 'addresses' })
       } else {
         this.deleteLoginUser()
-        this.$router.push({name:'home'})
+        this.$router.push({ name: 'home' })
       }
     })
   },
@@ -42,8 +44,8 @@ export default {
       //
     }
   },
-  methods:{
-    ...mapActions(['toggleSideMenu', 'setLoginUser', 'logout', 'deleteLoginUser'])
+  methods: {
+    ...mapActions(['toggleSideMenu', 'setLoginUser', 'logout', 'deleteLoginUser', 'fetchAddresses'])
   }
 }
 </script>
