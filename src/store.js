@@ -27,6 +27,13 @@ export default new Vuex.Store({
       state.addresses.push(address)
     }
   },
+  deleteAddress(state, {
+    id
+  }) {
+    const index = state.addresses.findIndex(address => address.id === id)
+
+    state.addresses.splice(index, 1)
+  },
   updateAddress(state, {
     id,
     address
